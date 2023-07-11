@@ -101,7 +101,7 @@ input[type="number"] {
 }
 
 ion-card{
-  box-shadow: none;
+  /* box-shadow: ; */
 }
 
 .setup-parameter-unit {
