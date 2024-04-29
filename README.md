@@ -19,3 +19,7 @@ You can calculate:
 1. `npm install`
 
 2. `ionic serve`
+
+## Fixes
+- make button text larger
+- include total tank cost
