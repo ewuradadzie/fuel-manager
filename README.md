@@ -19,3 +19,7 @@ You can calculate:
 1. `npm install`
 
 2. `ionic serve`
+
+## [Fixes](#fixes)
+- increase button font sizes
+- include price for full tank
