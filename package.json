@@ -1,7 +1,7 @@
 {
   "name": "fuel-manager",
   "version": "1.0.1",
-  "description": "The fuel manager nAPjZE5WopCsgJwl3vHm5iafpV",
+  "description": "The fuel manager",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
