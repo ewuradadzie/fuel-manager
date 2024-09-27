@@ -366,7 +366,6 @@ ion-segment-button.ios {
 .flex-d {
   display: flex;
   justify-content: space-between;
-  width: 75%
 
 }
 
