@@ -81,6 +81,7 @@ const tankCapacity = ref();
 const maxMileage = ref();
 const fuelEfficiency = ref();
 const fuelPrice = ref();
+const fullTankPrice = ref();
 
 const canEdit = ref(false);
 

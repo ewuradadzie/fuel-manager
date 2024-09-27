@@ -38,9 +38,15 @@
               <div class="info-item-value">{{ fuelPrice }} <span class="info-item-unit">GH&cent;</span></div>
               <font-awesome-icon id="open-modal" class="ion-item-action-icon" icon="fa fa-pen-to-square" />
             </div>
-            <div class="info-item">
-              <div class="info-item-heading">Fuel Economy</div>
-              <div class="info-item-value">{{ fuelEfficiency }} <span class="info-item-unit">km/liter</span></div>
+            <div class="flex-d">
+              <div class="info-item">
+                <div class="info-item-heading">Fuel Economy</div>
+                <div class="info-item-value">{{ fuelEfficiency }} <span class="info-item-unit">km/liter</span></div>
+              </div>
+              <div class="info-item mt0">
+                <div class="info-item-heading">Full Tank Price</div>
+                <div class="info-item-value">{{ fullTankPrice }} <span class="info-item-unit">GH&cent;</span></div>
+              </div>
             </div>
           </ion-card-content>
         </ion-card>
@@ -162,6 +168,8 @@ const segmentValue = ref("cost");
 const fuelPriceTemp = ref();
 const fuelPrice = ref();
 const fuelEfficiency = ref();
+const tankCapacity = ref();
+const fullTankPrice = ref();
 
 const calculatorInput = ref("");
 const calculatedVolume = ref();
@@ -176,6 +184,8 @@ onBeforeUpdate(async () => {
 const loadData = async () => {
   fuelEfficiency.value = parseFloat((await StorageService.get("fuelEfficiency")) || 0).toFixed(2);
   fuelPrice.value = parseFloat((await StorageService.get("fuelPrice")) || 0);
+  tankCapacity.value = parseFloat((await StorageService.get("tankCapacity")) || 0);
+  fullTankPrice.value = parseFloat((await StorageService.get("fullTankPrice")) || 0).toFixed(2);
 };
 
 const getFuelPrice = () => {
@@ -184,7 +194,9 @@ const getFuelPrice = () => {
 
 const saveFuelPrice = () => {
   fuelPrice.value = fuelPriceTemp.value;
+  fullTankPrice.value = fuelPrice.value * tankCapacity.value;
   StorageService.set("fuelPrice", fuelPrice.value);
+  StorageService.set("fullTankPrice", fullTankPrice.value);
   modalController.dismiss();
 };
 
@@ -349,5 +361,16 @@ ion-segment-button.ios {
   align-items: center;
   /* Vertical alignment */
   justify-content: center;
+}
+
+.flex-d {
+  display: flex;
+  justify-content: space-between;
+  width: 75%
+
+}
+
+.mt0 {
+  margin-top: 0 !important;
 }
 </style>
