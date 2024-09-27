@@ -21,7 +21,5 @@ You can calculate:
 2. `ionic serve`
 
 ## [Pending Fixes](#fixes) 
-- increase button font sizes
 
 ## [Upcoming Features](#features) 
-- include price for full tank
