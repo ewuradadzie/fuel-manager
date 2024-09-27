@@ -33,4 +33,4 @@ npm-debug.log*
 /tests
 /android
 /ios
-/screens.key
+package-lock.json
