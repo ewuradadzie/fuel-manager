@@ -25,4 +25,3 @@ You can calculate:
 
 ## [Upcoming Features](#features) 
 - include price for full tank
-- calculate liters
