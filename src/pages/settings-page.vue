@@ -93,6 +93,7 @@ const loadData = async () => {
   maxMileage.value = (await StorageService.get("maxMileage")) || 0;
   fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
   fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+  fullTankPrice.value = (await StorageService.get("fullTankPrice")) || 0;
 };
 
 const editData = () => {
@@ -105,6 +106,8 @@ const saveData = async () => {
   fuelEfficiency.value = maxMileage.value / tankCapacity.value;
   await StorageService.set("fuelEfficiency", fuelEfficiency.value);
   await StorageService.set("fuelPrice", fuelPrice.value);
+  fullTankPrice.value = fuelPrice.value * tankCapacity.value; 
+  await StorageService.set("fullTankPrice", fullTankPrice.value);
   canEdit.value = false;
 };
 
@@ -113,6 +116,7 @@ const clearData = async () => {
   maxMileage.value = "";
   fuelEfficiency.value = "";
   fuelPrice.value = "";
+  fullTankPrice.value ="";
 };
 </script>
 
