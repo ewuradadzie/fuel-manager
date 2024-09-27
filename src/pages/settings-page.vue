@@ -95,6 +95,7 @@ const loadData = async () => {
   fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
   fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
   fullTankPrice.value = (await StorageService.get("fullTankPrice")) || 0;
+  saveData();
 };
 
 const editData = () => {
