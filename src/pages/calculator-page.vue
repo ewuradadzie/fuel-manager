@@ -283,6 +283,7 @@ ion-segment-button {
   --padding-top: 5px;
   --padding-bottom: 5px;
   --indicator-box-shadow: none;
+  --border-style: none;
 }
 
 /* Material Design styles */
