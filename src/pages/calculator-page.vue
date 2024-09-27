@@ -52,19 +52,22 @@
           <ion-segment-button value="mileage">
             <ion-label>Mileage</ion-label>
           </ion-segment-button>
+          <ion-segment-button value="volume">
+            <ion-label>Volume</ion-label>
+          </ion-segment-button>
         </ion-segment>
 
         <ion-card v-if="showResults == false">
           <ion-card-content id="calculator-input-div" class="center-items">
             <div id="calculator-input-group">
               <div v-if="calculatorInput !== ''">
-                {{ "Enter " + (segmentValue == "mileage" ? "cost in GH&cent;:" : "mileage in km:") }}
+                {{ "Enter " + (segmentValue == "cost" ? "cost in GH&cent;:" : (segmentValue == "mileage" ? "mileage in km:" : "volume in liters:")) }}
               </div>
               <input
                 id="calculator-input"
                 v-model="calculatorInput"
                 type="number"
-                :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS:' : 'mileage in km:')"
+                :placeholder="'Enter ' + (segmentValue == 'cost' ? 'cost in GH&cent;:' : (segmentValue == 'mileage' ? 'mileage in km:' : 'volume in liters:'))"
                 :style="calculatorInput === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'"
               />
             </div>
@@ -73,7 +76,7 @@
 
         <ion-card v-if="showResults == true">
           <ion-card-content id="calculator-result-div">
-            <div v-if="segmentValue == 'cost'">
+            <div v-if="segmentValue == 'mileage'">
               <div>For a distance of {{ calculatorInput }} km, you would need an average of</div>
               <div class="info-item mt-10">
                 <div class="info-item-heading">Volume</div>
@@ -85,13 +88,25 @@
                 <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH&cent;</span></div>
               </div>
             </div>
-            <div v-if="segmentValue == 'mileage'">
+            <div v-if="segmentValue == 'cost'">
               <div>For an amount of {{ calculatorInput }} GH&cent;, you would get an average of</div>
               <div class="info-item mt-10">
                 <div class="info-item-heading">Volume</div>
                 <div class="info-item-value text-lg">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
               </div>
               <div class="mt-10">and an additional mileage of</div>
+              <div class="info-item">
+                <div class="info-item-heading">Mileage</div>
+                <div class="info-item-value text-lg">{{ calculatedMileage }} <span class="info-item-unit">km</span></div>
+              </div>
+            </div>
+            <div v-if="segmentValue == 'volume'">
+              <div>For an volume of {{ calculatorInput }} liters, you would pay an average of</div>
+              <div class="info-item mt-10">
+                <div class="info-item-heading">Cost</div>
+                <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH&cent;</span></div>
+              </div>
+              <div class="mt-10">and get an additional mileage of</div>
               <div class="info-item">
                 <div class="info-item-heading">Mileage</div>
                 <div class="info-item-value text-lg">{{ calculatedMileage }} <span class="info-item-unit">km</span></div>
@@ -180,11 +195,14 @@ const dismissModal = () => {
 const calculate = async () => {
   await loadData();
   if (segmentValue.value == "cost") {
-    calculatedCost.value = ((+calculatorInput.value * fuelPrice.value) / fuelEfficiency.value).toFixed(2);
-    calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
-  } else {
     calculatedMileage.value = ((+calculatorInput.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
     calculatedVolume.value = (+calculatorInput.value / fuelPrice.value).toFixed(2);
+  } else if (segmentValue.value == "mileage") {
+    calculatedCost.value = ((+calculatorInput.value * fuelPrice.value) / fuelEfficiency.value).toFixed(2);
+    calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
+  } else if (segmentValue.value == "volume") {
+    calculatedCost.value = (+calculatorInput.value * fuelPrice.value).toFixed(2);
+    calculatedMileage.value = ((+calculatedCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
   }
   showResults.value = true;
 };
